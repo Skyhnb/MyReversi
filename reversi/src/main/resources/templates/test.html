@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+<body>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+
+<script>
+    $.ajax({
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        url: "/user/updateUser",
+        data: JSON.stringify({
+            "name": "test",
+            "ifWin": 1,
+            "score": 28
+        }),
+        success: function(response){
+            console.log("数据更新完成");
+            console.log(response);
+        },
+        error: function (e) {
+            console.log(e.status);
+            console.log(e.responseText);
+        }
+
+    });
+</script>
+</body>
+</html>

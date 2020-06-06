@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.wxt.reversi.dao.UserMapper">
+    <resultMap id="UserResult" type="HashMap">
+        <id column="id" property="id" jdbcType="DECIMAL"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="match_count" property="matchCount" jdbcType="DECIMAL"/>
+        <result column="win_count" property="winCount" jdbcType="DECIMAL"/>
+        <result column="score" property="score" jdbcType="DECIMAL"/>
+
+    </resultMap>
+
+    <insert id="insertUser" parameterType="java.lang.String">
+        insert into user(name)
+        VALUES(#{name});
+    </insert>
+
+    <select id="checkExist" parameterType="java.lang.String" resultMap="UserResult">
+        select id, name, match_count, win_count, score from user
+        where name = #{name};
+    </select>
+
+    <update id="updateUser">
+        update user
+        set match_count = match_count + 1,
+            win_count = win_count + #{ifWin},
+            score = #{score}
+        where user.name = #{name};
+    </update>
+</mapper>
